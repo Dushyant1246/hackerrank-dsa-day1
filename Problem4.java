@@ -23,16 +23,19 @@ class Result4 {
 
     public static long arrayManipulation(int n, List<List<Integer>> queries) {
         // Write your code here
-        int[] arr = new int[n];
+        long[] arr = new long[n+2];
         for(List<Integer> query: queries){
             int data = query.get(2);
-            for(int i = query.get(0) - 1 ; i < query.get(1) ; i++){
-                arr[i] = arr[i] + data;
-            }
+            arr[query.get(0)] += data;
+            arr[query.get(1) + 1] -= data;
         }
-        int max = 0;
-        for(int i = 0 ; i < n ; i++){
-            if(max < arr[i]) max = arr[i];
+        long max = Integer.MIN_VALUE;
+        long current = 0;
+        for(int i = 1 ; i <= n ; i++){
+            current += arr[i];
+            if(max < current){
+                max = current;
+            }
         }
         return max;
     }
